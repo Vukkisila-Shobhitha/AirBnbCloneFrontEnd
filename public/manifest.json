@@ -1,0 +1,25 @@
+{
+  "short_name": "App",
+  "name": "My Application",
+  "icons": [
+    {
+      "src": "logo144.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "logo512.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    },
+    {
+      "src": "logo192.png",
+      "type": "image/png",
+      "sizes": "144x144"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}
