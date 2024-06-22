@@ -1,17 +1,15 @@
-import { createContext, useState, useEffect } from "react";
-import PropTypes from "prop-types";
-import axiosConnect from "../Token/axios.js";
-import { getItemFromLS, setItemsInLS, removeItemFromLS } from "../Token/script.js";
+import { createContext, useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
+import axiosConnect from '../Token/axios.js';
+import { getItemFromLS, setItemsInLS, removeItemFromLS } from '../Token/script.js';
 
-// Define the UserContext with default values
 export const UserContext = createContext({
   user: null,
   isLoggedIn: false,
   signin: () => {},
-  signout: () => {},
+  signout: () => {}
 });
 
-// Create a provider component
 export const UserContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -22,7 +20,6 @@ export const UserContextProvider = ({ children }) => {
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
       setIsLoggedIn(true);
-      // Set Authorization header if user is logged in
       axiosConnect.defaults.headers.common['Authorization'] = `Bearer ${parsedUser.token}`;
     }
   }, []);
@@ -48,7 +45,6 @@ export const UserContextProvider = ({ children }) => {
   );
 };
 
-// PropTypes validation for the UserContextProvider component
 UserContextProvider.propTypes = {
   children: PropTypes.node.isRequired,
 };

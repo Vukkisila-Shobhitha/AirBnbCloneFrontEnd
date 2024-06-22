@@ -1,55 +1,71 @@
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { Link,useParams } from 'react-router-dom';
+//import axios from 'axios';
+import axiosConnect from '../../Token/axios.js';
+import { getItemFromLS } from '../../Token/script.js';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons';
 
-const BookingInfo = ({ bookingId }) => {
+
+const BookingInfo = () => {  
+  const { id } = useParams();
   const [booking, setBooking] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
+    const token = getItemFromLS('token');
     const getBooking = async () => {
-      setLoading(true);
       try {
-        const response = await axios.get(`/api/bookings/${bookingId}`);
-        setBooking(response.data);
-        setLoading(false);
+        console.log('bookingId: '+id);
+        if (!id) return; // Exit early if bookingId is null
+        console.log('postbookingId: '+id);
+
+        const response = await axiosConnect.get('/bookings', {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+      });
+        console.log('postresponse: '+JSON.stringify(response));
+        const filteredBooking = response.data.bookings.filter(
+          (booking) => booking._id === id
+        );
+        setBooking(filteredBooking[0]);
       } catch (error) {
         console.error('Error fetching booking:', error);
-        setLoading(false);
-        setError('Error fetching booking');
       }
     };
 
-    if (bookingId) {
-      getBooking();
-    }
-  }, [bookingId]);
+    getBooking();
+  }, [id]); // Run effect whenever bookingId changes
 
-  if (!bookingId) {
-    return <p>Booking ID is required</p>;
-  }
-
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-
-  if (error) {
-    return <p>{error}</p>;
+  if (!id) {
+    return <p>Booking ID is required</p>; // Render a message if bookingId is null
   }
 
   return (
     <div>
-      <h2>Booking Information</h2>
-      <p>ID: {booking._id}</p>
-      <p>Name: {booking.name}</p>
-      {/* Display other booking details */}
+      {booking ? (
+        <div>
+          <h2>Booking Information</h2>
+          <p>ID: {booking._id}</p>
+          <p>Name: {booking.username}</p>
+          {/* Render other booking details */}
+        </div>
+      ) : (
+        <p>Loading...</p>
+      )}
+      <div className="App pad-mar">
+        <Link to={"/"} className="link-switch comp-section" aria-label="Back to Home">
+          <FontAwesomeIcon icon={faLongArrowAltLeft} />&nbsp;&nbsp;Back To Home
+        </Link>
+      </div>
     </div>
+    
   );
 };
 
 BookingInfo.propTypes = {
-  bookingId: PropTypes.string.isRequired,
+  bookingId: PropTypes.string, // Remove .isRequired if null is a valid state
 };
 
 export default BookingInfo;

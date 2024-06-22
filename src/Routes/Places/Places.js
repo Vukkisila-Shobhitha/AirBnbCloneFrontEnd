@@ -22,7 +22,7 @@ function Places() {
                         Authorization: `Bearer ${token}`,
                     },
                 });
-                setPlaces(data);
+                setPlaces(data.userPlaces);
             } catch (error) {
                 console.error('Error fetching places:', error);
             } finally {

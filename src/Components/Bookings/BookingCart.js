@@ -2,8 +2,8 @@ import { useState, useEffect, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { differenceInCalendarDays } from 'date-fns';
-import { UserContext } from '../../Context/UserContext';
-import axiosConnect from '../../Token/axios';
+import { UserContext } from '../../Context/UserContext.js';
+import axiosConnect from '../../Token/axios.js';
 import PropTypes from 'prop-types';
 
 function BookingCart({ place }) {

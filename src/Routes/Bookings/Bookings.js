@@ -24,7 +24,7 @@ function Bookings() {
             Authorization: `Bearer ${token}`,
           },
         });
-        setBookings(data.booking);
+        setBookings(data.bookings);
       } catch (error) {
         console.error('Error fetching bookings:', error);
       } finally {
@@ -67,7 +67,7 @@ function Bookings() {
             <div className="card mb-3 booking-card">
               <div className="row g-0 info-page">
                 <div className="">
-                  <PlaceImageComponent id={booking.place} />
+                  <PlaceImageComponent id={booking.place._id} />
                 </div>
                 <div className="card-text">
                   <BookingDates booking={booking} className="info-page pad-mar-sm" />
@@ -104,3 +104,6 @@ function Bookings() {
 }
 
 export default Bookings;
+
+
+

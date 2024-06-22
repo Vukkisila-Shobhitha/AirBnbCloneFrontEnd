@@ -19,6 +19,7 @@ export const PlaceContextProvider = ({ children }) => {
         const { data } = await axiosConnect.get('/places');
         setPlaces(data.places);
         setLoading(false);
+        //console.error('Place context js:', JSON.stringify(data.places));
       } catch (error) {
         console.error('Error fetching places:', error);
         // Handle error state or notify users

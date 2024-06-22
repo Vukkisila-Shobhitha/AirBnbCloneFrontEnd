@@ -21,7 +21,7 @@ function SearchBar() {
           const { data } = await axiosConnect.get(
             `/places/search${searchType}/${searchTerm.trim()}`
           );
-          setPlaces(data);
+          setPlaces(data.searchMatches);
           setLoading(false);
         }, 500)
       );
