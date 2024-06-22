@@ -57,3 +57,10 @@ Backend Server : http://localhost:5000
 ```
 Backend: https://airbnbclonebackend-h76h.onrender.com
 ```
+Used Technologies:
+1. React
+2. Node
+3. MongoDb
+4. Express
+5. HTML
+6. CSS
